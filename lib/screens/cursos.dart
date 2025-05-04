@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'progreso.dart';
 
 class CursosScreen extends StatelessWidget {
   const CursosScreen({super.key});
@@ -44,22 +45,33 @@ class CourseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            LinearProgressIndicator(value: progress),
-            const SizedBox(height: 4),
-            Text('${(progress * 100).toInt()}% completado'),
-          ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ProgresoCursoScreen(titulo: title, progreso: progress),
+          ),
+        );
+      },
+      child: Card(
+        elevation: 2,
+        margin: const EdgeInsets.only(bottom: 16),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              LinearProgressIndicator(value: progress),
+              const SizedBox(height: 4),
+              Text('${(progress * 100).toInt()}% completado'),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
