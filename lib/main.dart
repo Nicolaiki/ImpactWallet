@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:impactwallet/screens/cursos.dart';
+import 'package:impactwallet/screens/home.dart';
+import 'package:impactwallet/screens/inversiones.dart'; // ajusta el path si es necesario
 
 void main() {
   runApp(const ImpactWalletApp());
@@ -33,9 +36,9 @@ class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 1; // Home al centro
 
   static const List<Widget> _pages = <Widget>[
-    Center(child: Text('Inversiones', style: TextStyle(fontSize: 24))),
-    Center(child: Text('Inicio', style: TextStyle(fontSize: 24))),
-    Center(child: Text('Cursos', style: TextStyle(fontSize: 24))),
+    InversionesScreen(),
+    HomeScreen(),
+    CursosScreen()
   ];
 
   void _onItemTapped(int index) {
