@@ -1,4 +1,7 @@
+// inversiones.dart
 import 'package:flutter/material.dart';
+import 'market.dart';
+import 'detalle_activo.dart';
 
 class InversionesScreen extends StatelessWidget {
   const InversionesScreen({super.key});
@@ -6,61 +9,155 @@ class InversionesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F7FA),
       appBar: AppBar(
-        title: const Text('Inversiones'),
-        backgroundColor: Colors.blue[100],
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text('Inversiones', style: TextStyle(color: Colors.black)),
+        actions: const [
+          Icon(Icons.notifications_none, color: Colors.black),
+          SizedBox(width: 12),
+          CircleAvatar(radius: 16, backgroundColor: Colors.grey),
+          SizedBox(width: 12),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Resumen del Portafolio',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 12),
-            const Card(
-              elevation: 2,
-              child: ListTile(
-                title: Text('ImpactCoins invertidos'),
-                subtitle: Text('Total: 5,000 IMC'),
-                trailing: Text('+320 IMC', style: TextStyle(color: Colors.blue)),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Balance Total', style: TextStyle(fontSize: 16, color: Colors.grey)),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(colors: [Color(0xFFB0D0FF), Color(0xFF6BAAFF)]),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      '\$42,734.00',
+                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      '+24% Semana Pasada',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                          child: const Text('Deposit', style: TextStyle(color: Colors.blue)),
+                        ),
+                        const SizedBox(width: 12),
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                          child: const Text('Withdraw', style: TextStyle(color: Colors.blue)),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Evolución del Rendimiento',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 12),
-            Container(
-              height: 150,
-              color: Colors.grey[200],
-              child: const Center(child: Text('Gráfico placeholder')),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Activos Disponibles',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Expanded(
-              child: ListView(
-                children: const [
-                  ListTile(
-                    title: Text('Fondo Sostenible A'),
-                    subtitle: Text('Rentabilidad simulada: 5.3%'),
-                    trailing: ElevatedButton(onPressed: null, child: Text('Invertir')),
-                  ),
-                  ListTile(
-                    title: Text('ETF Impacto Social'),
-                    subtitle: Text('Rentabilidad simulada: -1.2%'),
-                    trailing: ElevatedButton(onPressed: null, child: Text('Invertir')),
-                  ),
+              const SizedBox(height: 24),
+              const Text('Billetera', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 12,
+                children: [
+                  _billeteraBox('Crypto', '12 Activos'),
+                  _billeteraBox('DeFi', '7 Activos'),
+                  _billeteraBox('NFT', '2 Activos'),
+                  _billeteraBox('Web3', '5 Activos'),
                 ],
               ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Principales', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => MarketScreen()));
+                    },
+                    child: const Text('Ver Más'),
+                  )
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  _bidCard(context, 'Apple', '\$2,635.00', '+24%', Colors.green),
+                  const SizedBox(width: 12),
+                  _bidCard(context, 'LATAM', '\$823.00', '-12%', Colors.red),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _billeteraBox(String title, String subtitle) {
+    return Container(
+      width: 150,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 4),
+          Text(subtitle, style: const TextStyle(color: Colors.grey)),
+        ],
+      ),
+    );
+  }
+
+  Widget _bidCard(BuildContext context, String title, String price, String change, Color changeColor) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => DetalleActivoScreen(
+              asset: {
+                'title': title,
+                'price': price,
+                'change': change,
+              },
             ),
-          ],
+          ),
+        ),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 4),
+              Text(price, style: const TextStyle(fontSize: 16)),
+              const SizedBox(height: 4),
+              Text(change, style: TextStyle(color: changeColor)),
+            ],
+          ),
         ),
       ),
     );
