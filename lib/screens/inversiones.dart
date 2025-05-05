@@ -39,7 +39,7 @@ class InversionesScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      '\$42,734.00',
+                      '\$42.734 IMC',
                       style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                     const SizedBox(height: 8),
@@ -53,14 +53,9 @@ class InversionesScreen extends StatelessWidget {
                         ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                          child: const Text('Deposit', style: TextStyle(color: Colors.blue)),
+                          child: const Text('Últimas Transacciones', style: TextStyle(color: Colors.blue)),
                         ),
                         const SizedBox(width: 12),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                          child: const Text('Withdraw', style: TextStyle(color: Colors.blue)),
-                        ),
                       ],
                     )
                   ],
