@@ -10,7 +10,7 @@ class ProgresoCursoScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tu Progreso'),
-        backgroundColor: Colors.green[100],
+        backgroundColor: Colors.blue[100],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -113,7 +113,7 @@ class _LogroNode extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(icon, size: 40, color: Colors.green),
+        Icon(icon, size: 40, color: Colors.blue),
         const SizedBox(height: 4),
         Text(title, textAlign: TextAlign.center),
         const SizedBox(height: 12),
@@ -128,7 +128,7 @@ class _TreeConnector extends StatelessWidget {
     return Container(
       height: 24,
       width: 4,
-      color: Colors.green,
+      color: Colors.blue,
       margin: const EdgeInsets.symmetric(vertical: 8),
     );
   }

@@ -16,7 +16,7 @@ class ImpactWalletApp extends StatelessWidget {
       title: 'ImpactWallet',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.grey[100],
       ),
@@ -69,7 +69,7 @@ class _MainNavigationState extends State<MainNavigation> {
       bottomNavigationBar: BottomNavigationBar(
         items: _items,
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green,
+        selectedItemColor: Colors.blue,
         onTap: _onItemTapped,
       ),
     );

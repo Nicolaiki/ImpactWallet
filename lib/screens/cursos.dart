@@ -9,7 +9,7 @@ class CursosScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cursos'),
-        backgroundColor: Colors.green[100],
+        backgroundColor: Colors.blue[100],
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),

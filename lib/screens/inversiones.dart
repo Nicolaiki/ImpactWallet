@@ -8,7 +8,7 @@ class InversionesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Inversiones'),
-        backgroundColor: Colors.green[100],
+        backgroundColor: Colors.blue[100],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -25,7 +25,7 @@ class InversionesScreen extends StatelessWidget {
               child: ListTile(
                 title: Text('ImpactCoins invertidos'),
                 subtitle: Text('Total: 5,000 IMC'),
-                trailing: Text('+320 IMC', style: TextStyle(color: Colors.green)),
+                trailing: Text('+320 IMC', style: TextStyle(color: Colors.blue)),
               ),
             ),
             const SizedBox(height: 20),
