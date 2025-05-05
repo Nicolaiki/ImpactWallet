@@ -32,7 +32,7 @@ class InversionesScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(colors: [Color(0xFFB0D0FF), Color(0xFF6BAAFF)]),
+                  gradient: const LinearGradient(colors: [Color(0xFF6BAAFF), Color(0xFFB0D0FF)]),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Column(

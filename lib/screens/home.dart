@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onTap: _helpMode
                       ? () => _showPopupHelp(HelpTarget.balance)
                       : null,
-                  child: _BalanceCard(),
+                  child: const _BalanceCard(),
                 ),
                 const SizedBox(height: 24),
                 const Text(
@@ -150,53 +150,51 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _BalanceCard extends StatelessWidget {
+  const _BalanceCard();
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.black,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      elevation: 4,
-      child: const Padding(
-        padding: EdgeInsets.all(20),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 30,
-              backgroundColor: Color(0xFF4A90E2),
-              child: Text(
-                'IMC',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Balance Total', style: TextStyle(fontSize: 16, color: Colors.grey)),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: [Color(0xFF6BAAFF), Color(0xFFB0D0FF)]),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                '\$42.734 IMC',
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
               ),
-            ),
-            SizedBox(width: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Saldo Disponible',
-                  style: TextStyle(fontSize: 16, color: Colors.white70),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  '\$42.734 IMC',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF4A90E2),
+              const SizedBox(height: 8),
+              const Text(
+                '+24% Semana Pasada',
+                style: TextStyle(color: Colors.white),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                    child: const Text('Últimas Transacciones', style: TextStyle(color: Colors.blue)),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              )
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
+
 
 class _CourseProgress extends StatelessWidget {
   final double progress;
