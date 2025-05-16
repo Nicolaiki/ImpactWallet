@@ -35,11 +35,21 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 1; // Home al centro
 
-  static const List<Widget> _pages = <Widget>[
-    InversionesScreen(),
-    HomeScreen(),
-    BilleteraScreen()
-  ];
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = <Widget>[
+      const InversionesScreen(),
+      HomeScreen(onGoToBilletera: () {
+        setState(() {
+          _selectedIndex = 2;
+        });
+      }),
+      const BilleteraScreen(),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {

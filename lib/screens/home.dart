@@ -5,7 +5,8 @@ import 'cursos.dart';
 enum HelpTarget { balance, progress }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final VoidCallback onGoToBilletera;
+  const HomeScreen({super.key, required this.onGoToBilletera});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -38,14 +39,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _navigateToCursos() {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const CursosScreen()),
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => const CursosScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(0.0, 1.0);
+          const end = Offset.zero;
+          const curve = Curves.easeInOut;
+          final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          return SlideTransition(position: animation.drive(tween), child: child);
+        },
+      ),
     );
   }
 
   void _navigateToBilletera() {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const BilleteraScreen()),
-    );
+    widget.onGoToBilletera();
   }
 
   @override

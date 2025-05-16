@@ -7,55 +7,96 @@ class CursosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.black,
-        title: const Row(
+      backgroundColor: Colors.transparent,
+      body: SafeArea(
+        child: Column(
           children: [
-            Icon(Icons.school, color: Colors.white),
-            SizedBox(width: 8),
-            Text('Cursos', style: TextStyle(color: Colors.white)),
+            // AppBar negro fuera del fondo blanco
+            Container(
+              color: Colors.black,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.close, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  const SizedBox(width: 64),
+                  const Icon(Icons.school, color: Colors.white),
+                  const SizedBox(width: 1),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Text(
+                      'Cursos',
+                      style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Contenedor blanco redondeado
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(32),
+                    topRight: Radius.circular(32),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 20,
+                      offset: Offset(0, 10),
+                    ),
+                  ],
+                ),
+                child: ListView(
+                  padding: const EdgeInsets.all(22),
+                  children: const [
+                    Text(
+                      'Cursos',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 16),
+                    CursoItem(
+                      titulo: 'Introducción a la inversión',
+                      duracion: '12 Minutos',
+                      lecciones: '4 Lecciones',
+                      progreso: 0.5,
+                      imagen: '',
+                    ),
+                    CursoItem(
+                      titulo: 'Riesgo vs Recompensa',
+                      duracion: '7 Minutos',
+                      lecciones: '2 Lecciones',
+                      progreso: 0.3,
+                      imagen: '',
+                    ),
+                    CursoItem(
+                      titulo: 'Finanzas personales',
+                      duracion: '10 Minutos',
+                      lecciones: '5 Lecciones',
+                      progreso: 0.0,
+                      imagen: '',
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: const [
-          Text(
-            'Cursos',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 16),
-          CursoItem(
-            titulo: 'Introducción a la inversión',
-            duracion: '12 Minutos',
-            lecciones: '4 Lecciones',
-            progreso: 0.5,
-            imagen: '',
-          ),
-          CursoItem(
-            titulo: 'Riesgo vs Recompensa',
-            duracion: '7 Minutos',
-            lecciones: '2 Lecciones',
-            progreso: 0.3,
-            imagen: '',
-          ),
-          CursoItem(
-            titulo: 'Finanzas personales',
-            duracion: '10 Minutos',
-            lecciones: '5 Lecciones',
-            progreso: 0.0,
-            imagen: '',
-          ),
-        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         selectedItemColor: Colors.black,
+        backgroundColor: Colors.white,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
+            icon: Icon(Icons.school),
             label: 'Cursos',
           ),
           BottomNavigationBarItem(
@@ -96,7 +137,11 @@ class CursoItem extends StatelessWidget {
         );
       },
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(color: Colors.grey.shade300, width: 1),
+        ),
         margin: const EdgeInsets.only(bottom: 16),
         elevation: 1,
         child: Column(
@@ -120,13 +165,25 @@ class CursoItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                  CircularProgressIndicator(
-                    value: progreso,
-                    strokeWidth: 3,
-                    backgroundColor: Colors.grey.shade300,
+                  SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CircularProgressIndicator(
+                          value: progreso,
+                          strokeWidth: 4,
+                          backgroundColor: Colors.grey.shade200,
+                          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+                        ),
+                        Text(
+                          '${(progreso * 100).toInt()}%',
+                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(width: 8),
-                  Text('${(progreso * 100).toInt()}%'),
                 ],
               ),
             ),
