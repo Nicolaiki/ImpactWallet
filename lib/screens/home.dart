@@ -170,7 +170,8 @@ class _BalanceCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [Color.fromARGB(255, 0, 0, 0), Color.fromARGB(255, 89, 89, 89)]),
+        color: Colors.black,
+        //gradient: const LinearGradient(colors: [Color.fromARGB(255, 0, 0, 0), Color.fromARGB(255, 89, 89, 89)]),
         borderRadius: BorderRadius.circular(16),
       ),
       child: const Column(
@@ -182,7 +183,7 @@ class _BalanceCard extends StatelessWidget {
           ),
           SizedBox(height: 8),
           Text(
-            '+24% Semana Pasada',
+            '+24,5%',
             style: TextStyle(color: Colors.white),
           ),
         ],
