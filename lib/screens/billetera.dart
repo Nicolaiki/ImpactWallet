@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'cursos.dart'; // Asegúrate que esta pantalla esté definida
 
 class BilleteraScreen extends StatefulWidget {
   const BilleteraScreen({super.key});
@@ -10,8 +12,22 @@ class BilleteraScreen extends StatefulWidget {
 class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   String selectedPeriod = '1D';
-
   final List<String> periods = ['1D', '1S', '1M', '1A'];
+
+  final Map<String, List<FlSpot>> mockChartData = {
+    '1D': [const FlSpot(0, 1.2), const FlSpot(1, 1.1), const FlSpot(2, 1.15), const FlSpot(3, 1.18)],
+    '1S': [const FlSpot(0, 1.0), const FlSpot(1, 1.1), const FlSpot(2, 1.05), const FlSpot(3, 1.18)],
+    '1M': [const FlSpot(0, 0.9), const FlSpot(1, 1.0), const FlSpot(2, 1.1), const FlSpot(3, 1.18)],
+    '1A': [const FlSpot(0, 0.6), const FlSpot(1, 0.9), const FlSpot(2, 1.1), const FlSpot(3, 1.18)],
+  };
+
+  final List<Map<String, dynamic>> activos = [
+    {'nombre': 'Tesla', 'imc': 12.4},
+    {'nombre': 'Apple', 'imc': 8.7},
+    {'nombre': 'Google', 'imc': 15.3},
+    {'nombre': 'Microsoft', 'imc': 6.9},
+    {'nombre': 'Amazon', 'imc': 10.5},
+  ];
 
   @override
   void initState() {
@@ -25,26 +41,43 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
     super.dispose();
   }
 
-  Widget _buildChart(String period) {
-    // Este widget simula un gráfico. Puedes integrar un gráfico real con packages como fl_chart.
+  Widget _buildChart() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'ImpactCoin precio: \$1.18',
-          style: const TextStyle(fontSize: 16, color: Colors.grey),
+        const Text(
+          'ImpactCoin precio',
+          style: TextStyle(fontSize: 16, color: Colors.grey),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 4),
+        const Text(
+          '\$1.18',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
         const Text('-5.67%', style: TextStyle(color: Colors.grey)),
         const SizedBox(height: 16),
-        Container(
-          height: 100,
-          color: Colors.grey[200],
-          alignment: Alignment.center,
-          child: Text('Gráfico ($period)', style: const TextStyle(color: Colors.black54)),
+        SizedBox(
+          height: 150,
+          child: LineChart(
+            LineChartData(
+              gridData: const FlGridData(show: false),
+              titlesData: const FlTitlesData(show: false),
+              borderData: FlBorderData(show: false),
+              lineBarsData: [
+                LineChartBarData(
+                  isCurved: true,
+                  color: Colors.black,
+                  barWidth: 2,
+                  spots: mockChartData[selectedPeriod]!,
+                  dotData: const FlDotData(show: false),
+                ),
+              ],
+            ),
+          ),
         ),
         const SizedBox(height: 16),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: periods.map((p) {
             return ChoiceChip(
               label: Text(p),
@@ -64,39 +97,66 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Billetera'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const [
-            Tab(text: 'ImpactCoin'),
-            Tab(text: 'Activos'),
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            const Text(
+              'Tu saldo',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+            const Text(
+              '\$150,78',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const CursosScreen()));
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+              ),
+              child: const Text('Obtener', style: TextStyle(color: Colors.white)),
+            ),
+            const SizedBox(height: 16),
+            TabBar(
+              controller: _tabController,
+              indicatorColor: Colors.black,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
+              tabs: const [
+                Tab(text: 'ImpactCoin'),
+                Tab(text: 'Activos'),
+              ],
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: _buildChart(),
+                  ),
+                  ListView.builder(
+                    itemCount: activos.length,
+                    itemBuilder: (context, index) {
+                      final activo = activos[index];
+                      return ListTile(
+                        leading: const Icon(Icons.business, color: Colors.black),
+                        title: Text(activo['nombre']),
+                        trailing: Text('${activo['imc']} IMC'),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          // ImpactCoin tab
-          ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              const Text(
-                'Tu saldo',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
-              ),
-              const SizedBox(height: 4),
-              const Text(
-                '\$150,78',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 24),
-              _buildChart(selectedPeriod),
-            ],
-          ),
-          // Activos tab
-          const Center(child: Text('Listado de activos...')),
-        ],
       ),
     );
   }
