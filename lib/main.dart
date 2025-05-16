@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:impactwallet/screens/cursos.dart';
+import 'package:impactwallet/screens/billetera.dart';
 import 'package:impactwallet/screens/home.dart';
 import 'package:impactwallet/screens/inversiones.dart'; // ajusta el path si es necesario
 
@@ -38,7 +38,7 @@ class _MainNavigationState extends State<MainNavigation> {
   static const List<Widget> _pages = <Widget>[
     InversionesScreen(),
     HomeScreen(),
-    CursosScreen()
+    BilleteraScreen()
   ];
 
   void _onItemTapped(int index) {
@@ -54,11 +54,11 @@ class _MainNavigationState extends State<MainNavigation> {
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.home),
-      label: 'Home',
+      label: 'Inicio',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.school),
-      label: 'Cursos',
+      icon: Icon(Icons.wallet),
+      label: 'Billetera',
     ),
   ];
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'billetera.dart';
+import 'cursos.dart';
 
-enum HelpTarget { balance, chart, progress }
+enum HelpTarget { balance, progress }
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,6 +36,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _navigateToCursos() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const CursosScreen()),
+    );
+  }
+
+  void _navigateToBilletera() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const BilleteraScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,20 +77,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 GestureDetector(
                   onTap: _helpMode
                       ? () => _showPopupHelp(HelpTarget.balance)
-                      : null,
+                      : _navigateToBilletera,
                   child: const _BalanceCard(),
                 ),
                 const SizedBox(height: 24),
-                const Text(
-                  'Rendimiento Financiero',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-                ),
-                const SizedBox(height: 12),
-                GestureDetector(
-                  onTap: _helpMode
-                      ? () => _showPopupHelp(HelpTarget.chart)
-                      : null,
-                  child: const SizedBox(height: 200, child: _FinancialChart()),
+                ElevatedButton.icon(
+                  onPressed: _navigateToCursos,
+                  icon: const Icon(Icons.school),
+                  label: const Text("Cursos"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF4A90E2),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 24),
                 const Text(
@@ -98,39 +113,39 @@ class _HomeScreenState extends State<HomeScreen> {
             opacity: _selectedTarget != null ? 1.0 : 0.0,
             duration: const Duration(milliseconds: 300),
             child: _selectedTarget != null
-              ? Positioned.fill(
-                  child: GestureDetector(
-                    onTap: _dismissPopupHelp,
-                    child: Container(
-                      color: Colors.black54,
-                      alignment: Alignment.center,
+                ? Positioned.fill(
+                    child: GestureDetector(
+                      onTap: _dismissPopupHelp,
                       child: Container(
-                        margin: const EdgeInsets.all(40),
-                        padding: const EdgeInsets.all(24),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              _getHelpText(_selectedTarget!),
-                              style: const TextStyle(fontSize: 16),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 20),
-                            ElevatedButton(
-                              onPressed: _dismissPopupHelp,
-                              child: const Text('Entendido'),
-                            ),
-                          ],
+                        color: Colors.black54,
+                        alignment: Alignment.center,
+                        child: Container(
+                          margin: const EdgeInsets.all(40),
+                          padding: const EdgeInsets.all(24),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                _getHelpText(_selectedTarget!),
+                                style: const TextStyle(fontSize: 16),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: _dismissPopupHelp,
+                                child: const Text('Entendido'),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              : const SizedBox.shrink(),
+                  )
+                : const SizedBox.shrink(),
           )
         ],
       ),
@@ -141,8 +156,6 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (target) {
       case HelpTarget.balance:
         return 'Aquí puedes ver tu saldo disponible en IMC, tu moneda virtual.';
-      case HelpTarget.chart:
-        return 'Este gráfico muestra tu rendimiento financiero en el tiempo.';
       case HelpTarget.progress:
         return 'Este indicador muestra tu progreso en el curso actual.';
     }
@@ -154,47 +167,29 @@ class _BalanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Balance Total', style: TextStyle(fontSize: 16, color: Colors.grey)),
-        const SizedBox(height: 8),
-        Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(colors: [Color(0xFF6BAAFF), Color(0xFFB0D0FF)]),
-            borderRadius: BorderRadius.circular(16),
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(colors: [Color(0xFF6BAAFF), Color(0xFFB0D0FF)]),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          Text(
+            '\$42.734 IMC',
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                '\$42.734 IMC',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                '+24% Semana Pasada',
-                style: TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                    child: const Text('Últimas Transacciones', style: TextStyle(color: Colors.blue)),
-                  ),
-                ],
-              )
-            ],
+          SizedBox(height: 8),
+          Text(
+            '+24% Semana Pasada',
+            style: TextStyle(color: Colors.white),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
-
 
 class _CourseProgress extends StatelessWidget {
   final double progress;
@@ -209,41 +204,6 @@ class _CourseProgress extends StatelessWidget {
         backgroundColor: Colors.grey[200],
         valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF4A90E2)),
         minHeight: 12,
-      ),
-    );
-  }
-}
-
-class _FinancialChart extends StatelessWidget {
-  const _FinancialChart();
-
-  @override
-  Widget build(BuildContext context) {
-    return LineChart(
-      LineChartData(
-        borderData: FlBorderData(show: false),
-        titlesData: const FlTitlesData(show: false),
-        gridData: const FlGridData(show: false),
-        lineBarsData: [
-          LineChartBarData(
-            isCurved: true,
-            color: const Color(0xFF4A90E2),
-            belowBarData: BarAreaData(
-              show: true,
-              color: const Color(0xFF4A90E2).withOpacity(0.3),
-            ),
-            dotData: const FlDotData(show: false),
-            spots: const [
-              FlSpot(0, 1),
-              FlSpot(1, 1.3),
-              FlSpot(2, 1.1),
-              FlSpot(3, 1.6),
-              FlSpot(4, 1.2),
-              FlSpot(5, 1.8),
-              FlSpot(6, 2),
-            ],
-          ),
-        ],
       ),
     );
   }
