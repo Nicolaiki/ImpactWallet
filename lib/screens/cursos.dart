@@ -7,29 +7,60 @@ class CursosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Cursos'),
-        backgroundColor: Colors.transparent,
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.black,
+        title: const Row(
+          children: [
+            Icon(Icons.school, color: Colors.white),
+            SizedBox(width: 8),
+            Text('Cursos', style: TextStyle(color: Colors.white)),
+          ],
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: const [
           Text(
-            'Tus Cursos',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            'Cursos',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 16),
-          CourseCard(
-            title: 'Introducción a la inversión',
-            progress: 0.6,
+          CursoItem(
+            titulo: 'Introducción a la inversión',
+            duracion: '12 Minutos',
+            lecciones: '4 Lecciones',
+            progreso: 0.5,
+            imagen: '',
           ),
-          CourseCard(
-            title: 'Riesgo vs Recompensa',
-            progress: 0.3,
+          CursoItem(
+            titulo: 'Riesgo vs Recompensa',
+            duracion: '7 Minutos',
+            lecciones: '2 Lecciones',
+            progreso: 0.3,
+            imagen: '',
           ),
-          CourseCard(
-            title: 'Finanzas personales',
-            progress: 0.0,
+          CursoItem(
+            titulo: 'Finanzas personales',
+            duracion: '10 Minutos',
+            lecciones: '5 Lecciones',
+            progreso: 0.0,
+            imagen: '',
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        selectedItemColor: Colors.black,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu_book),
+            label: 'Cursos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.emoji_events),
+            label: 'Logros',
           ),
         ],
       ),
@@ -37,11 +68,21 @@ class CursosScreen extends StatelessWidget {
   }
 }
 
-class CourseCard extends StatelessWidget {
-  final String title;
-  final double progress;
+class CursoItem extends StatelessWidget {
+  final String titulo;
+  final String duracion;
+  final String lecciones;
+  final double progreso;
+  final String imagen;
 
-  const CourseCard({super.key, required this.title, required this.progress});
+  const CursoItem({
+    super.key,
+    required this.titulo,
+    required this.duracion,
+    required this.lecciones,
+    required this.progreso,
+    required this.imagen,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,28 +91,48 @@ class CourseCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => ProgresoCursoScreen(titulo: title, progreso: progress),
+            builder: (_) => ProgresoCursoScreen(titulo: titulo, progreso: progreso),
           ),
         );
       },
       child: Card(
-        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         margin: const EdgeInsets.only(bottom: 16),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              LinearProgressIndicator(value: progress),
-              const SizedBox(height: 4),
-              Text('${(progress * 100).toInt()}% completado'),
-            ],
-          ),
+        elevation: 1,
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+              child: Image.asset(imagen, fit: BoxFit.cover),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(titulo, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 4),
+                        Text('$duracion · $lecciones',
+                            style: const TextStyle(color: Colors.grey, fontSize: 13)),
+                      ],
+                    ),
+                  ),
+                  CircularProgressIndicator(
+                    value: progreso,
+                    strokeWidth: 3,
+                    backgroundColor: Colors.grey.shade300,
+                  ),
+                  const SizedBox(width: 8),
+                  Text('${(progreso * 100).toInt()}%'),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
-

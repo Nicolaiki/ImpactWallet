@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: const Icon(Icons.school),
                   label: const Text("Cursos"),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF4A90E2),
+                    backgroundColor: Colors.purple,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
@@ -170,12 +170,12 @@ class _BalanceCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [Color(0xFF6BAAFF), Color(0xFFB0D0FF)]),
+        gradient: const LinearGradient(colors: [Color.fromARGB(255, 0, 0, 0), Color.fromARGB(255, 89, 89, 89)]),
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text(
             '\$42.734 IMC',
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
@@ -202,7 +202,7 @@ class _CourseProgress extends StatelessWidget {
       child: LinearProgressIndicator(
         value: progress,
         backgroundColor: Colors.grey[200],
-        valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF4A90E2)),
+        valueColor: const AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 0, 0, 0)),
         minHeight: 12,
       ),
     );

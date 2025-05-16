@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:impactwallet/screens/billetera.dart';
 import 'package:impactwallet/screens/home.dart';
-import 'package:impactwallet/screens/inversiones.dart'; // ajusta el path si es necesario
+import 'package:impactwallet/screens/inversiones.dart';
 
 void main() {
   runApp(const ImpactWalletApp());
@@ -18,7 +18,7 @@ class ImpactWalletApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         useMaterial3: true,
-        scaffoldBackgroundColor: Colors.grey[100],
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: const MainNavigation(),
     );
@@ -69,7 +69,8 @@ class _MainNavigationState extends State<MainNavigation> {
       bottomNavigationBar: BottomNavigationBar(
         items: _items,
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Colors.black,
+        backgroundColor: Colors.white,
         onTap: _onItemTapped,
       ),
     );
