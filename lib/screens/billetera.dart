@@ -81,7 +81,7 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
           children: periods.map((p) {
             final bool isSelected = selectedPeriod == p;
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4), // Ajusta separación aquí
+              padding: const EdgeInsets.symmetric(horizontal: 6), // Ajusta separación aquí
               child: GestureDetector(
                 onTap: () {
                   setState(() {
@@ -100,7 +100,7 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
                     p,
                     style: TextStyle(
                       fontSize: 12,
-                      color: isSelected ? Colors.grey[800] : Colors.grey[400],
+                      color: isSelected ? Colors.grey[800] : Colors.grey[500],
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -120,14 +120,10 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 16),
-            const Text(
-              'Tu saldo',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
-            ),
+            const SizedBox(height: 54),
             const Text(
               '\$150,78 IMC',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             ElevatedButton(

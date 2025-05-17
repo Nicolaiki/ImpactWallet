@@ -73,6 +73,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: const Icon(Icons.menu, color: Colors.black),
                       onPressed: _navigateToSidebar,
                     ),
+                    const Text(
+                      'Impact Wallet',
+                      style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                     IconButton(
                       icon: Icon(
                         _helpMode ? Icons.hls_off : Icons.help_outline,
@@ -82,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 24),
                 GestureDetector(
                   onTap: _helpMode
                       ? () => _showPopupHelp(HelpTarget.balance)
@@ -89,26 +94,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: const _BalanceCard(),
                 ),
                 const SizedBox(height: 24),
-                SizedBox(
-                  width: 60,
-                  height: 60,
-                  child: ElevatedButton.icon(
-                    onPressed: _navigateToCursos,
-                    icon: const Icon(Icons.school, size: 32),
-                    label: const Text(
-                      "Cursos",
-                      style: TextStyle(fontSize: 16),
-                      textAlign: TextAlign.center,
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GestureDetector(
+                      onTap: _navigateToCursos,
+                      child: Container(
+                        width: 72,
+                        height: 72,
+                        decoration: BoxDecoration(
+                          color: Colors.purple,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Icon(
+                          Icons.school,
+                          color: Colors.white,
+                          size: 36,
+                        ),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                     ),
-                  ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      "Cursos",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 24),
                 const Text(
