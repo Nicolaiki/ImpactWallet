@@ -46,7 +46,7 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'ImpactCoin precio',
+          'ImpactCoin',
           style: TextStyle(fontSize: 16, color: Colors.grey),
         ),
         const SizedBox(height: 4),
@@ -67,7 +67,7 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
                 LineChartBarData(
                   isCurved: true,
                   color: Colors.black,
-                  barWidth: 2,
+                  barWidth: 3,
                   spots: mockChartData[selectedPeriod]!,
                   dotData: const FlDotData(show: false),
                 ),
@@ -77,19 +77,38 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
         ),
         const SizedBox(height: 16),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: periods.map((p) {
-            return ChoiceChip(
-              label: Text(p),
-              selected: selectedPeriod == p,
-              onSelected: (_) {
-                setState(() {
-                  selectedPeriod = p;
-                });
-              },
+            final bool isSelected = selectedPeriod == p;
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4), // Ajusta separación aquí
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedPeriod = p;
+                  });
+                },
+                child: Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color: isSelected ? Colors.grey[200] : Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    p,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: isSelected ? Colors.grey[800] : Colors.grey[400],
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
             );
           }).toList(),
-        ),
+        )
       ],
     );
   }
@@ -107,7 +126,7 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
             const Text(
-              '\$150,78',
+              '\$150,78 IMC',
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
@@ -128,6 +147,7 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
               indicatorColor: Colors.black,
               labelColor: Colors.black,
               unselectedLabelColor: Colors.grey,
+              labelPadding: const EdgeInsets.symmetric(horizontal: 2), // Menos espacio entre pestañas
               tabs: const [
                 Tab(text: 'ImpactCoin'),
                 Tab(text: 'Activos'),

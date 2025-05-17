@@ -89,16 +89,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: const _BalanceCard(),
                 ),
                 const SizedBox(height: 24),
-                ElevatedButton.icon(
-                  onPressed: _navigateToCursos,
-                  icon: const Icon(Icons.school),
-                  label: const Text("Cursos"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: ElevatedButton.icon(
+                    onPressed: _navigateToCursos,
+                    icon: const Icon(Icons.school, size: 32),
+                    label: const Text(
+                      "Cursos",
+                      style: TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.purple,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                     ),
                   ),
                 ),
