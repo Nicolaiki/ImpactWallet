@@ -63,6 +63,42 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
               gridData: const FlGridData(show: false),
               titlesData: const FlTitlesData(show: false),
               borderData: FlBorderData(show: false),
+              lineTouchData: LineTouchData(
+                handleBuiltInTouches: true,
+                getTouchedSpotIndicator:
+                    (LineChartBarData barData, List<int> spotIndexes) {
+                  return spotIndexes.map((index) {
+                    return TouchedSpotIndicatorData(
+                      const FlLine(color: Colors.black, strokeWidth: 1),
+                      FlDotData(
+                        show: true,
+                        getDotPainter: (spot, percent, barData, index) =>
+                            FlDotCirclePainter(
+                          radius: 6,
+                          color: Colors.black,
+                          strokeWidth: 2,
+                          strokeColor: Colors.white,
+                        ),
+                      ),
+                    );
+                  }).toList();
+                },
+                touchTooltipData: LineTouchTooltipData(
+                  tooltipBgColor: Colors.black,
+                  tooltipRoundedRadius: 8,
+                  getTooltipItems: (touchedSpots) {
+                    return touchedSpots.map((touchedSpot) {
+                      return LineTooltipItem(
+                        '\$${touchedSpot.y.toStringAsFixed(2)}',
+                        const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    }).toList();
+                  },
+                ),
+              ),
               lineBarsData: [
                 LineChartBarData(
                   isCurved: true,
@@ -122,7 +158,7 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
           children: [
             const SizedBox(height: 54),
             const Text(
-              '\$150,78 IMC',
+              '\$42.734 IMC',
               style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
@@ -152,6 +188,7 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
             Expanded(
               child: TabBarView(
                 controller: _tabController,
+                physics: const NeverScrollableScrollPhysics(), // ← Deshabilita el swipe entre pestañas
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16),

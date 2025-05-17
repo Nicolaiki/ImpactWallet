@@ -14,7 +14,7 @@ class CursosScreen extends StatelessWidget {
             // AppBar negro fuera del fondo blanco
             Container(
               color: Colors.black,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 1),
               child: Row(
                 children: [
                   IconButton(
@@ -23,14 +23,25 @@ class CursosScreen extends StatelessWidget {
                       Navigator.pop(context);
                     },
                   ),
-                  const SizedBox(width: 64),
-                  const Icon(Icons.school, color: Colors.white),
-                  const SizedBox(width: 1),
+                  const SizedBox(width: 82),
+                  Container(
+                    width: 28,
+                    height: 28,
+                    decoration: BoxDecoration(
+                      color: Colors.purple,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(
+                      Icons.school,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                  ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 8),
+                    padding: EdgeInsets.only(left: 6),
                     child: Text(
                       'Cursos',
-                      style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.normal),
                     ),
                   ),
                 ],
@@ -43,8 +54,8 @@ class CursosScreen extends StatelessWidget {
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(32),
-                    topRight: Radius.circular(32),
+                    topLeft: Radius.circular(28),
+                    topRight: Radius.circular(28),
                   ),
                   boxShadow: [
                     BoxShadow(
