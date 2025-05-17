@@ -27,12 +27,12 @@ class InversionesScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Balance Total', style: TextStyle(fontSize: 16, color: Colors.grey)),
               const SizedBox(height: 8),
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(colors: [Color(0xFF6BAAFF), Color(0xFFB0D0FF)]),
+                  color: Colors.black,
+                  //gradient: const LinearGradient(colors: [Color(0xFF6BAAFF), Color(0xFFB0D0FF)]),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Column(
@@ -44,7 +44,7 @@ class InversionesScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     const Text(
-                      '+24% Semana Pasada',
+                      '+24,5%',
                       style: TextStyle(color: Colors.white),
                     ),
                     const SizedBox(height: 16),
@@ -53,7 +53,7 @@ class InversionesScreen extends StatelessWidget {
                         ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                          child: const Text('Últimas Transacciones', style: TextStyle(color: Colors.blue)),
+                          child: const Text('Últimas Transacciones', style: TextStyle(color: Colors.black)),
                         ),
                         const SizedBox(width: 12),
                       ],
@@ -65,7 +65,7 @@ class InversionesScreen extends StatelessWidget {
               const Text('Billetera', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 12),
               Wrap(
-                spacing: 12,
+                spacing: 16,
                 children: [
                   _billeteraBox('Crypto', '12 Activos'),
                   _billeteraBox('DeFi', '7 Activos'),

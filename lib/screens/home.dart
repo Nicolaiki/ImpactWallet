@@ -31,12 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() => _selectedTarget = null);
   }
 
-  void _navigateToSidebar() {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const SidebarScreen()),
-    );
-  }
-
   void _navigateToCursos() {
     Navigator.of(context).push(
       PageRouteBuilder(
@@ -60,6 +54,24 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: const [
+            DrawerHeader(
+              decoration: BoxDecoration(color: Colors.white),
+              child: Text(
+                'Menú',
+                style: TextStyle(color: Colors.black, fontSize: 24),
+              ),
+            ),
+            ListTile(leading: Icon(Icons.person), title: Text('Mi Perfil')),
+            ListTile(leading: Icon(Icons.settings), title: Text('Configuración')),
+            ListTile(leading: Icon(Icons.notifications), title: Text('Notificaciones')),
+            ListTile(leading: Icon(Icons.help_outline), title: Text('Ayuda')),
+          ],
+        ),
+      ),
       body: Stack(
         children: [
           SafeArea(
@@ -69,9 +81,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
-                      icon: const Icon(Icons.menu, color: Colors.black),
-                      onPressed: _navigateToSidebar,
+                    Builder(
+                      builder: (context) => IconButton(
+                        icon: const Icon(Icons.menu, color: Colors.black),
+                        onPressed: () => Scaffold.of(context).openDrawer(),
+                      ),
                     ),
                     const Text(
                       'Impact Wallet',
@@ -100,8 +114,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     GestureDetector(
                       onTap: _navigateToCursos,
                       child: Container(
-                        width: 72,
-                        height: 72,
+                        width: 64,
+                        height: 64,
                         decoration: BoxDecoration(
                           color: Colors.purple,
                           borderRadius: BorderRadius.circular(20),
@@ -109,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: const Icon(
                           Icons.school,
                           color: Colors.white,
-                          size: 36,
+                          size: 44,
                         ),
                       ),
                     ),
@@ -117,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const Text(
                       "Cursos",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.w500,
                       ),
@@ -235,29 +249,6 @@ class _CourseProgress extends StatelessWidget {
         backgroundColor: Colors.grey[200],
         valueColor: const AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 0, 0, 0)),
         minHeight: 12,
-      ),
-    );
-  }
-}
-
-class SidebarScreen extends StatelessWidget {
-  const SidebarScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Menú"),
-        backgroundColor: const Color(0xFF4A90E2),
-      ),
-      body: ListView(
-        padding: EdgeInsets.zero,
-        children: const [
-          ListTile(leading: Icon(Icons.person), title: Text('Mi Perfil')),
-          ListTile(leading: Icon(Icons.settings), title: Text('Configuración')),
-          ListTile(leading: Icon(Icons.notifications), title: Text('Notificaciones')),
-          ListTile(leading: Icon(Icons.help_outline), title: Text('Ayuda')),
-        ],
       ),
     );
   }
