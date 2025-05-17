@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'billetera.dart';
 import 'cursos.dart';
 
 enum HelpTarget { balance, progress }
@@ -55,21 +54,24 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: const [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.white),
-              child: Text(
-                'Menú',
-                style: TextStyle(color: Colors.black, fontSize: 24),
+        child: Container(
+          color: Colors.white,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: const [
+              DrawerHeader(
+                decoration: BoxDecoration(color: Colors.white),
+                child: Text(
+                  'Menú',
+                  style: TextStyle(color: Colors.black, fontSize: 24),
+                ),
               ),
-            ),
-            ListTile(leading: Icon(Icons.person), title: Text('Mi Perfil')),
-            ListTile(leading: Icon(Icons.settings), title: Text('Configuración')),
-            ListTile(leading: Icon(Icons.notifications), title: Text('Notificaciones')),
-            ListTile(leading: Icon(Icons.help_outline), title: Text('Ayuda')),
-          ],
+              ListTile(leading: Icon(Icons.person), title: Text('Mi Perfil')),
+              ListTile(leading: Icon(Icons.settings), title: Text('Configuración')),
+              ListTile(leading: Icon(Icons.notifications), title: Text('Notificaciones')),
+              ListTile(leading: Icon(Icons.help_outline), title: Text('Ayuda')),
+            ],
+          ),
         ),
       ),
       body: Stack(
@@ -91,12 +93,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       'Impact Wallet',
                       style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    IconButton(
-                      icon: Icon(
-                        _helpMode ? Icons.hls_off : Icons.help_outline,
-                        color: Colors.black,
+                    GestureDetector(
+                      onTap: _toggleHelpMode,
+                      child: const CircleAvatar(
+                        radius: 16,
+                        backgroundColor: Colors.grey,
+                        //child: Icon(Icons.help_outline, color: Colors.white, size: 18),
                       ),
-                      onPressed: _toggleHelpMode,
                     ),
                   ],
                 ),
