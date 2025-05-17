@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'billetera.dart';
-import 'cursos.dart';
+import 'cursos_screen.dart';
 
 enum HelpTarget { balance, progress }
 
