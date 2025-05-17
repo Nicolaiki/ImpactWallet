@@ -6,95 +6,135 @@ import 'detalle_activo.dart';
 class InversionesScreen extends StatelessWidget {
   const InversionesScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: const Text('Inversiones', style: TextStyle(color: Colors.black)),
-        actions: const [
-          Icon(Icons.notifications_none, color: Colors.black),
-          SizedBox(width: 12),
-          CircleAvatar(radius: 16, backgroundColor: Colors.grey),
-          SizedBox(width: 12),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 8),
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  //gradient: const LinearGradient(colors: [Color(0xFF6BAAFF), Color(0xFFB0D0FF)]),
-                  borderRadius: BorderRadius.circular(16),
+      drawer: Drawer(
+        child: Container(
+          color: Colors.white,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: const [
+              DrawerHeader(
+                decoration: BoxDecoration(color: Colors.white),
+                child: Text(
+                  'Menú',
+                  style: TextStyle(color: Colors.black, fontSize: 24),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+              ListTile(leading: Icon(Icons.person), title: Text('Mi Perfil')),
+              ListTile(leading: Icon(Icons.settings), title: Text('Configuración')),
+              ListTile(leading: Icon(Icons.notifications), title: Text('Notificaciones')),
+              ListTile(leading: Icon(Icons.help_outline), title: Text('Ayuda')),
+            ],
+          ),
+        ),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Parte superior copiada desde HomeScreen
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      '\$42.734 IMC',
-                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
+                    Builder(
+                      builder: (context) => IconButton(
+                        icon: const Icon(Icons.menu, color: Colors.black),
+                        onPressed: () => Scaffold.of(context).openDrawer(),
+                      ),
                     ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      '+24,5%',
-                      style: TextStyle(color: Colors.white),
+                    const CircleAvatar(
+                      radius: 16,
+                      backgroundColor: Colors.grey,
                     ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                          child: const Text('Últimas Transacciones', style: TextStyle(color: Colors.black)),
-                        ),
-                        const SizedBox(width: 12),
-                      ],
-                    )
                   ],
                 ),
-              ),
-              const SizedBox(height: 24),
-              const Text('Billetera', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 12),
-              Wrap(
-                spacing: 16,
-                children: [
-                  _billeteraBox('Crypto', '12 Activos'),
-                  _billeteraBox('DeFi', '7 Activos'),
-                  _billeteraBox('NFT', '2 Activos'),
-                  _billeteraBox('Web3', '5 Activos'),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Principales', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => MarketScreen()));
-                    },
-                    child: const Text('Ver Más'),
-                  )
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  _bidCard(context, 'Apple', '\$2,635.00', '+24%', Colors.green),
-                  const SizedBox(width: 12),
-                  _bidCard(context, 'LATAM', '\$823.00', '-12%', Colors.red),
-                ],
-              )
-            ],
+                //const SizedBox(height: 24),
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 8),
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            //gradient: const LinearGradient(colors: [Color(0xFF6BAAFF), Color(0xFFB0D0FF)]),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                '\$42.734 IMC',
+                                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                '+24,5%',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              const SizedBox(height: 16),
+                              Row(
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                                    child: const Text('Últimas Transacciones', style: TextStyle(color: Colors.black)),
+                                  ),
+                                  const SizedBox(width: 12),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        const Text('Billetera', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 12),
+                        Wrap(
+                          spacing: 16,
+                          children: [
+                            _billeteraBox('Crypto', '12 Activos'),
+                            _billeteraBox('DeFi', '7 Activos'),
+                            _billeteraBox('NFT', '2 Activos'),
+                            _billeteraBox('Web3', '5 Activos'),
+                          ],
+                        ),
+                        const SizedBox(height: 24),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Principales', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (_) => MarketScreen()));
+                              },
+                              child: const Text('Ver Más'),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            _bidCard(context, 'Apple', '\$2,635.00', '+24%', Colors.green),
+                            const SizedBox(width: 12),
+                            _bidCard(context, 'LATAM', '\$823.00', '-12%', Colors.red),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -153,62 +153,98 @@ class _BilleteraScreenState extends State<BilleteraScreen> with SingleTickerProv
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(height: 54),
-            const Text(
-              '\$42.734 IMC',
-              style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 12),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const CursosScreen()));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      drawer: Drawer(
+        child: Container(
+          color: Colors.white,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: const [
+              DrawerHeader(
+                decoration: BoxDecoration(color: Colors.white),
+                child: Text('Menú', style: TextStyle(color: Colors.black, fontSize: 24)),
               ),
-              child: const Text('Obtener', style: TextStyle(color: Colors.white)),
-            ),
-            const SizedBox(height: 16),
-            TabBar(
-              controller: _tabController,
-              indicatorColor: Colors.black,
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey,
-              labelPadding: const EdgeInsets.symmetric(horizontal: 2), // Menos espacio entre pestañas
-              tabs: const [
-                Tab(text: 'ImpactCoin'),
-                Tab(text: 'Activos'),
-              ],
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                physics: const NeverScrollableScrollPhysics(), // ← Deshabilita el swipe entre pestañas
+              ListTile(leading: Icon(Icons.person), title: Text('Mi Perfil')),
+              ListTile(leading: Icon(Icons.settings), title: Text('Configuración')),
+              ListTile(leading: Icon(Icons.notifications), title: Text('Notificaciones')),
+              ListTile(leading: Icon(Icons.help_outline), title: Text('Ayuda')),
+            ],
+          ),
+        ),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: _buildChart(),
+                  Builder(
+                    builder: (context) => IconButton(
+                      icon: const Icon(Icons.menu, color: Colors.black),
+                      onPressed: () => Scaffold.of(context).openDrawer(),
+                    ),
                   ),
-                  ListView.builder(
-                    itemCount: activos.length,
-                    itemBuilder: (context, index) {
-                      final activo = activos[index];
-                      return ListTile(
-                        leading: const Icon(Icons.business, color: Colors.black),
-                        title: Text(activo['nombre']),
-                        trailing: Text('${activo['imc']} IMC'),
-                      );
-                    },
+                  const CircleAvatar(
+                    radius: 16,
+                    backgroundColor: Colors.grey,
                   ),
                 ],
               ),
-            ),
-          ],
+              //const SizedBox(height: 32),
+              const Text(
+                '\$42.734 IMC',
+                style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const CursosScreen()));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                ),
+                child: const Text('Obtener', style: TextStyle(color: Colors.white)),
+              ),
+              const SizedBox(height: 16),
+              TabBar(
+                controller: _tabController,
+                indicatorColor: Colors.black,
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey,
+                labelPadding: const EdgeInsets.symmetric(horizontal: 2), // Menos espacio entre pestañas
+                tabs: const [
+                  Tab(text: 'ImpactCoin'),
+                  Tab(text: 'Activos'),
+                ],
+              ),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  physics: const NeverScrollableScrollPhysics(), // ← Deshabilita el swipe entre pestañas
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: _buildChart(),
+                    ),
+                    ListView.builder(
+                      itemCount: activos.length,
+                      itemBuilder: (context, index) {
+                        final activo = activos[index];
+                        return ListTile(
+                          leading: const Icon(Icons.business, color: Colors.black),
+                          title: Text(activo['nombre']),
+                          trailing: Text('${activo['imc']} IMC'),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
